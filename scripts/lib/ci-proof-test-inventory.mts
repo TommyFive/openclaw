@@ -751,6 +751,7 @@ export const PR_PROTECTED_RUNTIME_TEST_FILES: readonly string[] = [
   "extensions/slack/src/delivery-trace.test.ts",
   "extensions/slack/src/monitor.history-policy.test.ts",
   "extensions/slack/src/monitor.tool-result.test.ts",
+  "extensions/slack/src/monitor/events/agent.test.ts",
   "extensions/slack/src/monitor/events/interactions.test.ts",
   "extensions/slack/src/monitor/events/messages.test.ts",
   "extensions/slack/src/monitor/events/reactions.test.ts",

@@ -902,6 +902,7 @@ export const databaseWorkerCoreTestFiles = [
   "src/agents/sessions/session-manager-bounded.test.ts",
   "src/agents/sessions/session-manager-deep-values.test.ts",
   "src/agents/sessions/session-manager-retained-data.test.ts",
+  "src/agents/sessions/session-manager-cache-ttl.test.ts",
   "src/agents/sessions/session-manager-failure-context.test.ts",
   "src/agents/sessions/session-manager-mutation-boundaries.test.ts",
   "src/agents/sessions/session-manager-transaction-rollback.test.ts",

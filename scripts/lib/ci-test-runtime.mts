@@ -87,6 +87,7 @@ const nodeRequiredProcessFiles = new Set([
   // Keep the Node broker/subreaper cases and two-process relay retirement proof.
   "src/process/supervisor/adapters/child.service-lifecycle.test.ts",
   "src/process/supervisor/service-child-relay-host.retirement.test.ts",
+  "src/state/openclaw-agent-db.worker-admission.test.ts",
 ]);
 // Bun policies retain Node/V8 contracts and known fork defects on Node.
 const nodeRequiredFiles = new Set([

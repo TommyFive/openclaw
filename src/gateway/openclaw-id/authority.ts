@@ -51,11 +51,8 @@ import {
 import { nextPeopleExpiry } from "./invite-expiry.js";
 import { withSweptInvites, resolveReport, resolvedInvite } from "./invite-sweep.js";
 import { createBrowserRequestHandler, retainBrowserRequests } from "./member-browser-requests.js";
-import {
-  canonicalMemberProfiles,
-  retainMemberProfiles,
-  type OpenClawIdMemberProfiles,
-} from "./member-profiles.js";
+import { canonicalMemberProfiles, type OpenClawIdMemberProfiles } from "./member-profiles.js";
+import { retainMemberRecoveryUses } from "./member-recovery-uses.js";
 import { readMemberView, readOwnerView } from "./membership-views.js";
 import { createNodeInviteOperations } from "./node-invites.js";
 import { createRebindOperations } from "./rebind-operations.js";
@@ -138,7 +135,7 @@ export function createOpenClawIdAuthority(
       ? await upgradeToAllowlist(stored, nowSeconds())
       : stored;
     current = retainBrowserRequests(upgradeNodeCollections(current), nowSeconds());
-    current = await retainMemberProfiles(stored, current, profiles);
+    current = await retainMemberRecoveryUses(stored, current, profiles);
     if (current !== stored) {
       await store.write(current);
     }
@@ -177,7 +174,7 @@ export function createOpenClawIdAuthority(
 
   const commit = async (candidate: StoredClaw, assertCurrent?: () => void) => {
     const retained = retainBrowserRequests(candidate, nowSeconds(), record);
-    const next = await retainMemberProfiles(record, retained, profiles);
+    const next = await retainMemberRecoveryUses(record, retained, profiles);
     const previous = record;
     assertCurrent?.();
     try {

@@ -18,7 +18,15 @@ import {
   personInitials,
 } from "./people-format.js";
 import type { PeopleMotion } from "./people-motion.js";
-import type { ExistingProfile, Invite, Link, Member, MemberDevice, OwnerDevice } from "./types.js";
+import type {
+  ExistingProfile,
+  Invite,
+  Link,
+  Member,
+  MemberDevice,
+  MemberRecoveryUse,
+  OwnerDevice,
+} from "./types.js";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -72,6 +80,48 @@ function Avatar(props: { name?: string }) {
 }
 
 export type RemovedMemberNotice = { index: number; message: string };
+
+/** Gateway-owned history remains visible even when its member or browser no longer exists. */
+export function RecoveryUses(props: { uses: MemberRecoveryUse[]; locale: string }) {
+  return (
+    <Show when={props.uses.length > 0}>
+      <section class="ocid-access__section" aria-labelledby="ocid-access-recovery-uses">
+        <h3 id="ocid-access-recovery-uses">Recovery kit history</h3>
+        <p class="ocid-access__hint">
+          Browsers added with a member's recovery kit. These records stay after a kit is replaced or
+          a member or browser is removed. Dismissing an Inbox notice does not remove its record.
+        </p>
+        <ul class="ocid-access__list">
+          <For each={props.uses.toSorted((a, b) => b.seq - a.seq)} keyed={(use) => use.seq}>
+            {(use) => (
+              <li class="ocid-access__row">
+                <Avatar name={use().memberName} />
+                <div class="ocid-access__person" style={{ flex: "1" }}>
+                  <div class="ocid-access__title">{use().memberName} used a recovery kit</div>
+                  <p class="ocid-access__hint">Browser added: {use().deviceLabel}</p>
+                  <time
+                    class="ocid-access__hint"
+                    datetime={new Date(use().usedAt * 1000).toISOString()}
+                  >
+                    {new Date(use().usedAt * 1000).toLocaleString(props.locale, {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                      second: "2-digit",
+                      timeZoneName: "short",
+                    })}
+                  </time>
+                </div>
+              </li>
+            )}
+          </For>
+        </ul>
+      </section>
+    </Show>
+  );
+}
 
 type RolePickerProps = Parameters<ControlUiHost["components"]["mountSelectPicker"]>[1];
 const ROLE_OPTIONS: RolePickerProps["options"] = [
@@ -500,6 +550,9 @@ function MemberRow(props: {
           >
             Remove
           </button>
+        </Show>
+        <Show when={props.member.recoveryKit}>
+          <span class="chip">Recovery kit saved</span>
         </Show>
         <span class="chip">{props.member.role}</span>
       </div>

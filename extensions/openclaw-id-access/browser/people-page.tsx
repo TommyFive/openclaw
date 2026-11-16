@@ -32,6 +32,7 @@ import {
   InviteForm,
   Members,
   PendingRequests,
+  RecoveryUses,
   OperationError,
   type RemovedMemberNotice,
 } from "./people-sections.js";
@@ -331,6 +332,7 @@ export function PeoplePage(props: { host: ControlUiHost }) {
                     onRemove={remove}
                     onRemoveDevice={removeDevice}
                   />
+                  <RecoveryUses uses={current().link.recoveryUses ?? []} locale={host.locale} />
                 </section>
                 <Show when={latest(ownDevicePub)}>
                   <OperationError

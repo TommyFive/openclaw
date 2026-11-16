@@ -1829,7 +1829,7 @@ describe("CI changed Node test plan", () => {
     );
   });
 
-  it.each(["src/agents/simple-completion-runtime.plugin-scope.test.ts"])(
+  it.each(["src/agents/prepared-model-catalog-worker.integration.test.ts"])(
     "prepares runtime artifacts for changed fixture %s",
     (target) => {
       const shards = createChangedNodeTestShards([target]);

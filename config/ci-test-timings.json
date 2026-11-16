@@ -2484,20 +2484,6 @@
         "configs": [
           "test/vitest/vitest.agents-core.config.ts"
         ],
-        "env": {
-          "OPENCLAW_VITEST_MAX_WORKERS": "2"
-        },
-        "includePatterns": [
-          "src/agents/runtime-plugins.context-engine.integration.test.ts",
-          "src/agents/simple-completion-runtime.plugin-scope.test.ts"
-        ],
-        "pretestBuildMode": "runtime",
-        "seconds": 10
-      },
-      {
-        "configs": [
-          "test/vitest/vitest.agents-core.config.ts"
-        ],
         "env": {},
         "includePatterns": [
           "src/agents/agent-command-local.test.ts"
@@ -2515,18 +2501,6 @@
         ],
         "pretestBuildMode": "runtime",
         "seconds": 31
-      },
-      {
-        "configs": [
-          "test/vitest/vitest.agents-core.config.ts"
-        ],
-        "env": {},
-        "includePatterns": [
-          "src/agents/runtime-plugins.context-engine.integration.test.ts",
-          "src/agents/simple-completion-runtime.plugin-scope.test.ts"
-        ],
-        "pretestBuildMode": "runtime",
-        "seconds": 8
       },
       {
         "configs": [

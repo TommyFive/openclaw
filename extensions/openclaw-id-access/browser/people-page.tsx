@@ -32,10 +32,10 @@ import {
   InviteForm,
   Members,
   PendingRequests,
-  RecoveryUses,
   OperationError,
   type RemovedMemberNotice,
 } from "./people-sections.js";
+import { RecoveryUses } from "./recovery-uses.js";
 import type { Invite, Link, Member, MemberDevice, RemovalSummary, StatusResult } from "./types.js";
 
 // Canonical device fingerprints stay available in the request's details disclosure.
@@ -64,7 +64,10 @@ function sessionTitleFrom(host: ControlUiHost) {
 }
 
 /** The Access page for one Control UI host. */
-export function PeoplePage(props: { host: ControlUiHost }) {
+export function PeoplePage(props: {
+  host: ControlUiHost;
+  params?: Readonly<Record<string, string>>;
+}) {
   // The host is fixed for the page's lifetime.
   const host = untrack(() => props.host);
   const motion = createPeopleMotion();
@@ -280,7 +283,7 @@ export function PeoplePage(props: { host: ControlUiHost }) {
                   <h2 id="ocid-access-people" class="ocid-access__sr-only">
                     People
                   </h2>
-                  <Show when={latest(ownDevicePub)}>
+                  <Show when={latest(ownDevicePub) && !props.params?.member}>
                     <InviteForm
                       link={current().link}
                       motion={motion}
@@ -297,27 +300,32 @@ export function PeoplePage(props: { host: ControlUiHost }) {
                       }
                     />
                   </Show>
-                  <PendingRequests
-                    motion={motion}
-                    invites={(current().link.invites ?? []).filter((i) => i.status === "pending")}
-                    fingerprints={latest(fingerprints)}
-                    error={latest(error)}
-                    readOnly={!latest(ownDevicePub)}
-                    disabled={!canManage()}
-                    locale={host.locale}
-                    onRefresh={() => {
-                      refreshedError = latest(error);
-                      void observer?.refresh();
-                    }}
-                    onDecide={(invite, approve) =>
-                      void run(
-                        `request:${invite.inviteId}`,
-                        (link) => decideInvite(host.request, link, invite, approve),
-                        approve ? "approve" : "update",
-                      )
-                    }
-                  />
+                  <Show when={!props.params?.member}>
+                    <PendingRequests
+                      motion={motion}
+                      invites={(current().link.invites ?? []).filter((i) => i.status === "pending")}
+                      fingerprints={latest(fingerprints)}
+                      error={latest(error)}
+                      readOnly={!latest(ownDevicePub)}
+                      disabled={!canManage()}
+                      locale={host.locale}
+                      onRefresh={() => {
+                        refreshedError = latest(error);
+                        void observer?.refresh();
+                      }}
+                      onDecide={(invite, approve) =>
+                        void run(
+                          `request:${invite.inviteId}`,
+                          (link) => decideInvite(host.request, link, invite, approve),
+                          approve ? "approve" : "update",
+                        )
+                      }
+                    />
+                  </Show>
                   <Members
+                    selectedMember={props.params?.member}
+                    selectedDevice={props.params?.device}
+                    navigation={host.navigation}
                     motion={motion}
                     members={current().link.members ?? []}
                     error={latest(error)}
@@ -332,9 +340,16 @@ export function PeoplePage(props: { host: ControlUiHost }) {
                     onRemove={remove}
                     onRemoveDevice={removeDevice}
                   />
-                  <RecoveryUses uses={current().link.recoveryUses ?? []} locale={host.locale} />
+                  <RecoveryUses
+                    uses={(current().link.recoveryUses ?? []).filter(
+                      (use) => !props.params?.member || use.accountId === props.params.member,
+                    )}
+                    members={current().link.members ?? []}
+                    navigation={host.navigation}
+                    locale={host.locale}
+                  />
                 </section>
-                <Show when={latest(ownDevicePub)}>
+                <Show when={latest(ownDevicePub) && !props.params?.member}>
                   <OperationError
                     error={latest(error)?.target === "nodes" ? latest(error) : null}
                   />

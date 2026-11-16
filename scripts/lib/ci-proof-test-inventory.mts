@@ -1177,6 +1177,7 @@ export const PR_PROTECTED_RUNTIME_TEST_FILES: readonly string[] = [
   "src/agents/mcp-config-mutation.test.ts",
   "src/agents/mcp-connection-resolver.test.ts",
   "src/agents/mcp-oauth-refresh-issuer.test.ts",
+  "src/agents/mcp-stdio-client.cleanup.real.test.ts",
   "src/agents/memory-write-provenance.test.ts",
   "src/agents/model-auth-availability.session-pin.test.ts",
   "src/agents/model-auth-availability.test.ts",

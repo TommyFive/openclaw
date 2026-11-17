@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-17",
+  "timezone": "UTC+08:00",
+  "pr": 200178,
+  "pr_head": "fae22bedc776fadbbbcfb7b0e8d2226d0b1969f6",
+  "client": "actual macOS 2026.11.4 debug app, exact matching PR code",
+  "source": "real GUI screenshots, Gateway WS logs, isolated nodes status",
+  "events": [
+    {
+      "local_time": "2026-11-17T21:50:49.868+08:00",
+      "role": "operator",
+      "mode": "ui",
+      "auth": "device-token",
+      "outcome": "connected",
+      "detail": null
+    },
+    {
+      "local_time": "2026-11-17T21:44:22.351+08:00",
+      "role": "node",
+      "mode": "node",
+      "auth": "password",
+      "outcome": "connected",
+      "detail": null
+    },
+    {
+      "local_time": "2026-11-17T21:50:53.374+08:00",
+      "role": "node",
+      "mode": null,
+      "auth": "none",
+      "outcome": "unauthorized",
+      "detail": "trusted_proxy_missing_header_cf-access-jwt-assertion"
+    },
+    {
+      "local_time": "2026-11-17T21:50:56.066+08:00",
+      "role": "node",
+      "mode": null,
+      "auth": "none",
+      "outcome": "unauthorized",
+      "detail": "trusted_proxy_missing_header_cf-access-jwt-assertion"
+    },
+    {
+      "local_time": "2026-11-17T21:50:59.851+08:00",
+      "role": "node",
+      "mode": null,
+      "auth": "none",
+      "outcome": "unauthorized",
+      "detail": "trusted_proxy_missing_header_cf-access-jwt-assertion"
+    }
+  ],
+  "node_state_after_switch": {
+    "paired": true,
+    "connected": false,
+    "version": "2026.11.4"
+  },
+  "limits": [
+    "Positive node connection only over SSH/password",
+    "Tailscale Direct node NOT authenticated and no device node token provisioned",
+    "Operator device token must not be treated as node authorization",
+    "No complete native recovery/repair UX demonstration"
+  ],
+  "redaction": "Device IDs, hostnames, IPs, tokens, passwords and raw logs excluded"
+}

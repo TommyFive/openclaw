@@ -38,7 +38,19 @@ The isolated Gateway and credential stores were not modified for this report. No
 
 Six user-supplied graphical evidence states were examined and cropped into privacy-redacted excerpts: (1) native pairing required, (2) native UI connected/ready, (3) operator Admin access approval dialog, (4) Mac node unauthorized, (5) connected Gateway but unpaired Node, and (6) Control UI opened. Only private hostnames, addresses, and identifiers are masked; observations were not fabricated. The full raw captures remain in the private conversation, not in GitHub.
 
-The redacted screenshot image will be linked here if publicly uploaded; text and the structured Gateway outcome report are independently usable without image access.
+The six privacy-redacted screenshot excerpts have now been uploaded as real PNG files. Each is cropped directly from the user's actual app screenshot; the full private source screenshots remain only in the conversation. The excerpts are grouped below by the observed result:
+
+| Exhibit | Privacy-redacted actual screenshot |
+| --- | --- |
+| Before: macOS pairing required | ![Native app pairing required](screenshots/01-native-before-pairing.png) |
+| After: native UI connected | ![Native app remote UI connected](screenshots/02-native-connected-after-pairing.png) |
+| After: native Gateway ready | ![Native app Gateway ready](screenshots/03-native-gateway-ready.png) |
+| Operator-only Admin access prompt | ![Operator admin approval](screenshots/04-native-operator-admin-approval.png) |
+| Mac node rejected: no device token | ![Mac node authorization error](screenshots/05-native-node-denied.png) |
+| Gateway connected but node unpaired | ![Node unpaired](screenshots/06-native-node-unpaired.png) |
+
+**Important:** Positive operator UI admission and negative node-role denial are two distinct results. No screenshot from the newer 2026.11.4 macOS app build is claimed, and no screenshot demonstrates successful native node enrollment.
+
 
 ## Responsible next steps
 

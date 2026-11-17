@@ -61,9 +61,13 @@ Full raw Gateway logs and internal tailnet status are retained **locally only**,
 
 The two source images were tester-supplied; sanitized copies with private hostname and device-request ID masked were produced separately. The full confidential logs are still held locally and not uploaded to GitHub.
 
+## Subsequent real graphical native app test
+
+The actual installed app completed operator UI handshakes with Tailscale and trusted-proxy, while its separate node connection remained unauthorized without a node token. See [native-macos E2E](native-macos/README.md). This did not validate the newer native recovery UI.
+
 ## Remaining limitations and owner decision
 
-1. Actual macOS native application UI/onboarding screenshots and its pairing recovery flow were not captured. The actual app installed on the MacBook is an older release and was not launched or modified.
+1. The actual graphical macOS app (older version 2026.10.10) was subsequently tested: its operator UI connected over Tailscale Serve and trusted proxy. Positive node-role admission and the NEW 2026.11.4 native recovery dialogs are NOT yet proven. See native-macos/README.md.
 2. No successful authenticated browser session through the separate **Cloudflare Access** route was exercised in the live experiment. Unit tests cover its allowlist and header gate; the production Cloudflare proxy was not touched.
 3. Need maintainer approval for independent managed Serve authentication in trusted-proxy mode: tailnet user membership is intentionally *not* equivalent to Cloudflare `trustedProxy.allowUsers`.
 4. Full upstream CI remains blocked by external fork `action_required`, despite 354 earlier targeted local tests.

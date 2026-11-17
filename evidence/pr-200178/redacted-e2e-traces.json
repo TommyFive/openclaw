@@ -1,0 +1,286 @@
+{
+  "recorded_utc": "2026-11-17T07:46:18.679741+00:00",
+  "pr": 200178,
+  "issue": 190474,
+  "head": "e0b9b75428f136819dab42fbc370862c0f8924b2",
+  "method": "Real tailnet TLS/WSS against a running Gateway; independent signed Ed25519 protocol clients on a physical MacBook Air, not the native OpenClaw.app UI",
+  "testing_state": "Private isolated Gateway state; no channels or production agents",
+  "before": {
+    "runtime": "2026.11.3",
+    "results": [
+      {
+        "scenario": "tailnet_browser_signed",
+        "transport": "tailscale-serve-wss",
+        "clientId": "openclaw-control-ui",
+        "mode": "webchat",
+        "role": "operator",
+        "transport_open": true,
+        "challenge_received": true,
+        "response_received": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "tailnet_native_ui_signed",
+        "transport": "tailscale-serve-wss",
+        "clientId": "openclaw-macos",
+        "mode": "ui",
+        "role": "operator",
+        "transport_open": true,
+        "challenge_received": true,
+        "response_received": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "tailnet_node_signed_no_token",
+        "transport": "tailscale-serve-wss",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "transport_open": true,
+        "challenge_received": true,
+        "response_received": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "tailnet_node_signed_device_token",
+        "transport": "tailscale-serve-wss",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "transport_open": true,
+        "challenge_received": true,
+        "response_received": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "direct_native_ui_signed_no_proxy",
+        "transport": "direct-loopback-ws",
+        "clientId": "openclaw-macos",
+        "mode": "ui",
+        "role": "operator",
+        "transport_open": true,
+        "challenge_received": true,
+        "response_received": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      }
+    ]
+  },
+  "after": {
+    "runtime": "2026.11.4",
+    "results": [
+      {
+        "scenario": "macbook_ui_paired_operator_token",
+        "clientId": "openclaw-macos",
+        "mode": "ui",
+        "role": "operator",
+        "token_supplied": true,
+        "signed": true,
+        "transport_open": true,
+        "challenge": true,
+        "response": true,
+        "ok": true,
+        "type": "hello-ok",
+        "server_version": "2026.11.4",
+        "scopes": [
+          "operator.read"
+        ]
+      },
+      {
+        "scenario": "macbook_node_without_token",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "token_supplied": false,
+        "signed": true,
+        "transport_open": true,
+        "challenge": true,
+        "response": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "macbook_node_operator_token_only",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "token_supplied": true,
+        "signed": true,
+        "transport_open": true,
+        "challenge": true,
+        "response": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_DEVICE_TOKEN_MISMATCH",
+        "pairing_request_present": false
+      },
+      {
+        "scenario": "macbook_node_paired_node_token",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "token_supplied": true,
+        "signed": true,
+        "transport_open": true,
+        "challenge": true,
+        "response": true,
+        "ok": true,
+        "type": "hello-ok",
+        "server_version": "2026.11.4",
+        "scopes": []
+      }
+    ]
+  },
+  "prior_unpaired": {
+    "results": [
+      {
+        "name": "macbook_native_ui_signed",
+        "clientId": "openclaw-macos",
+        "mode": "ui",
+        "role": "operator",
+        "transport_open": true,
+        "challenge_received": true,
+        "responded": true,
+        "ok": false,
+        "error_code": "NOT_PAIRED",
+        "detail_code": "PAIRING_REQUIRED",
+        "pairing_request_present": true
+      },
+      {
+        "name": "macbook_node_signed_without_token",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "transport_open": true,
+        "challenge_received": true,
+        "responded": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      }
+    ]
+  },
+  "browser_origin": {
+    "results": [
+      {
+        "name": "browser_control_ui_allowed_origin",
+        "transport": "tailscale-serve-wss",
+        "browser_origin": "allowed",
+        "token_supplied": true,
+        "transport_open": true,
+        "responded": true,
+        "tls_verified": true,
+        "http_status": 101,
+        "challenge": true,
+        "ok": false,
+        "error_code": "NOT_PAIRED",
+        "detail_code": "PAIRING_REQUIRED"
+      },
+      {
+        "name": "browser_control_ui_bad_origin",
+        "transport": "tailscale-serve-wss",
+        "browser_origin": "disallowed",
+        "token_supplied": true,
+        "transport_open": true,
+        "responded": true,
+        "tls_verified": true,
+        "http_status": 101,
+        "challenge": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "CONTROL_UI_ORIGIN_NOT_ALLOWED"
+      }
+    ]
+  },
+  "raw_log_sha256": "1becc6b73e3c74d24e31188a61d27a7cfba14cc55ec5b798d491b8cebb42c03b",
+  "raw_log_size_bytes": 51721396,
+  "limitations": [
+    "Not an actual OpenClaw.app native UI screenshot or end-to-end app lifecycle.",
+    "No full authenticated Cloudflare Access browser session tested.",
+    "Isolated state avoids the production 2026.11.3-to-2026.11.4 state migration, which separately failed.",
+    "Maintainers must decide whether independent managed Serve admission bypassing the Cloudflare allowUsers list is permitted.",
+    "External GitHub Actions on fork were action_required, not green functional CI."
+  ],
+  "rollback_confirmed": {
+    "original_version": "2026.11.3",
+    "original_launchagent_config_restored": true,
+    "local_http": 200,
+    "tailscale_https": 200,
+    "tls_verify": 0
+  },
+  "same_macbook_after_rollback_baseline": {
+    "runtime": "2026.11.3",
+    "client": "untagged human tailnet MacBook Air",
+    "results": [
+      {
+        "name": "macbook_native_ui_signed",
+        "clientId": "openclaw-macos",
+        "mode": "ui",
+        "role": "operator",
+        "responded": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      },
+      {
+        "name": "macbook_node_signed_without_token",
+        "clientId": "node-host",
+        "mode": "node",
+        "role": "node",
+        "responded": true,
+        "ok": false,
+        "error_code": "INVALID_REQUEST",
+        "detail_code": "AUTH_IDENTITY_HEADER_REQUIRED",
+        "pairing_request_present": false
+      }
+    ]
+  },
+  "interactive_browser_screenshots": {
+    "source": "Tester-supplied Chromium screenshots dated 2026-11-17",
+    "tailnet_control_ui": {
+      "page": "Model Setup; UI footer shows 2026.11.4 and e0b9b75",
+      "authenticated_real_browser_ws_events": [
+        {
+          "time": "2026-11-17T15:35:23.335+08:00",
+          "client": "openclaw-control-ui",
+          "authentication": "tailscale",
+          "outcome": "connected"
+        },
+        {
+          "time": "2026-11-17T15:35:40.350+08:00",
+          "client": "openclaw-control-ui",
+          "authentication": "tailscale",
+          "outcome": "connected"
+        }
+      ],
+      "conclusion": "Successfully authenticated real browser WebSocket through managed Serve"
+    },
+    "cloudflare_facing_edge": {
+      "page": "OpenClaw 'Approve this browser' screen",
+      "conclusion": "Reached browser-device-authorization step through Cloudflare-facing route",
+      "not_proven": [
+        "Cloudflare Access JWT validation",
+        "completed browser approval",
+        "Cloudflare browser hello-ok"
+      ]
+    }
+  }
+}

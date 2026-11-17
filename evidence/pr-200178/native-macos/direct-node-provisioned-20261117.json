@@ -1,0 +1,54 @@
+{
+  "test": "PR200178 exact-matching native macOS 2026.11.4 — Direct Node credential bootstrap",
+  "date": "2026-11-17",
+  "local_timezone": "UTC+08:00",
+  "gateway_git_revision": "fae22bedc776fadbbbcfb7b0e8d2226d0b1969f6",
+  "app_version": "2026.11.4",
+  "network": "managed Tailscale Serve, direct wss to same host",
+  "steps": [
+    "Verified same existing primary device identity owned a valid SSH node token and a Direct operator token",
+    "Created consistent and integrity-checked credential SQLite backup on MacBook Air",
+    "Stopped only PR debug macOS app and used first-party OpenClawKit DeviceAuthStore.storeTokenPersisted with conditional create",
+    "Selected SSH node token and verified matching existing Direct route owner; created only missing role=node Direct entry",
+    "Re-launched PR debug macOS app; captured node WS auth=device-token success",
+    "Stopped and re-launched PR debug app second time; repeated successful node WS auth=device-token connection"
+  ],
+  "actual_gateway_ws_connects": [
+    {
+      "local_timestamp": "2026-11-17T22:50:19.573+08:00",
+      "client": "openclaw-macos",
+      "role": "node",
+      "mode": "node",
+      "auth": "device-token",
+      "outcome": "connected"
+    },
+    {
+      "local_timestamp": "2026-11-17T22:51:17.600+08:00",
+      "client": "openclaw-macos",
+      "role": "node",
+      "mode": "node",
+      "auth": "device-token",
+      "outcome": "connected"
+    }
+  ],
+  "final_node_state": {
+    "version": "2026.11.4",
+    "paired": true,
+    "connected": true,
+    "capabilities_count": 10,
+    "commands_count": 22
+  },
+  "auth_policy_changes": false,
+  "server_device_role_changes": false,
+  "server_token_rotated": false,
+  "operator_device_token_modified": false,
+  "node_direct_token_persisted": true,
+  "backup_created_and_verified": true,
+  "rollback": "Stop PR debug app; use the verified local helper with --rollback to remove only the provisioned Direct node token; optionally restore the backed-up credential SQLite if absolutely necessary",
+  "limitations": [
+    "Node role token manually scoped to verified direct endpoint using approved local provisioning; clean first-run Direct auto-onboarding is not proven",
+    "No remote node command execution was attempted",
+    "No GUI screenshot was collected automatically; Gateway WS logs and node status provide the E2E confirmation"
+  ],
+  "privacy": "No device IDs, token values, IP addresses, usernames, raw logs, SSH private keys or hostnames are included"
+}

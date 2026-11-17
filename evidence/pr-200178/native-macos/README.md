@@ -28,7 +28,7 @@ Evidence date: 17 November 2026 (CST, UTC+08:00). Draft PR openclaw/openclaw#200
 
 This closes the specific gap of whether a real graphical macOS app can complete the operator UI handshake with the fix: yes, it can. The positive real application evidence is stronger than the earlier synthetic protocol client test.
 
-It does NOT prove an authenticated native node connection. The node remains intentionally rejected without its own role-scoped token. It also does NOT verify the NEW native recovery dialogs in the 2026.11.4 source because the installed app is 2026.10.10.
+This **earlier 2026.10.10 app run** did not prove an authenticated native Node: that Node was intentionally denied without its own role-scoped token. It did not exercise the NEW native recovery dialogs from 2026.11.4. **A subsequent matching-build run below did prove Node connectivity over SSH and later over Direct, after controlled manual token association.**
 
 The operator access dialog requested Admin access; this is not a node-specific permission grant. Repeated operator approvals do not provision a node token.
 

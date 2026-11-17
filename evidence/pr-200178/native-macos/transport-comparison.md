@@ -16,3 +16,9 @@ The current macOS 2026.11.4 app shows the helpful missing-node-token error, but 
 Source screenshots: paired operator-device-token UI, paired-and-connected node while on SSH, missing-node-token native menubar error after switching back. Crops exclude sensitive hostnames, addresses, user/device identifiers. Raw screenshots and full Gateway logs are retained privately.
 
 Structured redacted log evidence: [transport-comparison.json](transport-comparison.json).
+
+## Follow-up after manual Direct Node provisioning
+
+The above failed Direct observations document the **pre-provisioning** state. A subsequent controlled test associated the existing approved SSH Node token with the verified same Gateway's Direct route scope. The *actual* native app was then admitted at **22:50:19.573** and **22:51:17.600** (after restart), with `role=node` and `auth=device-token`. Gateway status: `paired=true`, `connected=true`. No server authorization policy changed.
+
+See [positive native Direct Node E2E](direct-node-provisioned-20261117.md). The **automatic first-time Direct onboarding** and complete GUI recovery sequence remain unproven.

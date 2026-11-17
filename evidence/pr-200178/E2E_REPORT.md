@@ -71,10 +71,16 @@ Following the initial matching-app SSH success and Direct rejection, the MacBook
 
 See [positive Direct Node report](native-macos/direct-node-provisioned-20261117.md) and [structured sanitized receipts](native-macos/direct-node-provisioned-20261117.json). Manual token association does **not** prove native first-run auto-onboarding or successful GUI recovery; those remain limitations.
 
+## Successful Cloudflare Access browser route (subsequent live E2E)
+
+Following the earlier Cloudflare-facing browser pairing screenshot, the tester completed the actual Cloudflare Access login. At **23:20:22.561** and **23:21:03.417 (+08:00)** on November 17, the real `openclaw-control-ui` `webchat` operator connected to the patched Gateway with `auth=trusted-proxy`. Two pairing-gate transitions were also observed. The Gateway's trusted-proxy path verifies the configured required header, trusted source, user allowlist and ingress attribution. This is separate from the previously proved managed-Serve `auth=tailscale` ingress.
+
+[Cloudflare E2E report](cloudflare-access/README.md) · [structured sanitized receipts](cloudflare-access/redacted-ws-events.json). The tester's SSO completion and Gateway admission are supported; provider-side Cloudflare edge logs/JWT cryptographic verification were not separately audited.
+
 ## Remaining limitations and owner decision
 
 1. The older graphical macOS app (2026.10.10) established operator UI access. A later matching-build 2026.11.4 native app connected as Node over SSH and, after a manual route-scoped token association, over Tailscale Direct (including a post-restart connection). **Automatic first-run Node provisioning and the complete matching-build recovery GUI flow remain unproven.** See native-macos/README.md.
-2. No successful authenticated browser session through the separate **Cloudflare Access** route was exercised in the live experiment. Unit tests cover its allowlist and header gate; the production Cloudflare proxy was not touched.
+2. **Subsequent Cloudflare Access browser success:** The tester completed real Cloudflare Access sign-in; the Gateway recorded authenticated browser `auth=trusted-proxy` connections at 23:20:22 and 23:21:03 (+08:00). Independent Access edge audit and JWT cryptographic checks were **not** performed. See [Cloudflare browser E2E](cloudflare-access/README.md).
 3. Need maintainer approval for independent managed Serve authentication in trusted-proxy mode: tailnet user membership is intentionally *not* equivalent to Cloudflare `trustedProxy.allowUsers`.
 4. Full upstream CI remains blocked by external fork `action_required`, despite 354 earlier targeted local tests.
 5. Native Node token in the synthetic isolated test had to be loaded by restarting the isolated Gateway after out-of-process test pairing; a normal RPC pairing workflow could differ. Once loaded, positive Node admission passed.

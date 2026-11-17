@@ -63,9 +63,17 @@ The six privacy-redacted screenshot excerpts have now been uploaded as real PNG 
 
 See [separate matching-build SSH vs Direct report](transport-comparison.md) and [structured redacted log evidence](transport-comparison.json). Existing screenshots above document the earlier 2026.10.10 app, not this later matching-build test.
 
+## Direct node after manual provisioning — positive matching-build E2E
+
+**Follow-up after the negative Direct test:** Once the already-approved Node device token was explicitly associated with the verified Direct route using the OpenClawKit credential API, the actual macOS 2026.11.4 Node connected over Tailscale Direct with `auth=device-token` at **22:50:19.573** and **22:51:17.600** (after app restart), UTC+08:00.
+
+The Gateway showed `paired=true`, `connected=true`, 10 capabilities and 22 advertised commands. Neither Gateway policy nor device grants were modified. **Manual provisioning is not proof of automatic first-run pairing or the complete native recovery UX.**
+
+Read the [positive Node E2E report](direct-node-provisioned-20261117.md) and [sanitized WS results](direct-node-provisioned-20261117.json). Earlier failed Direct observations remain true for the pre-provisioned state.
+
 ## Responsible next steps
 
 - Do not enable ambient Tailscale user identity as node authorization.
-- For native node enrollment, use an approved authenticated bootstrap, preferably the SSH tunnel/local-direct password path mentioned in RemoteGatewayProbe.swift, and approve the node role separately.
-- Test a native macOS app built from the reviewed PR on a dedicated build host to validate new recovery UX. Do not build on production VPN/Passwall hosts.
+- Define and verify the supported native node bootstrap and automatic route-scoped token onboarding. The one-off, manually provisioned positive test does not establish a general self-service flow.
+- The matching macOS app is now built and E2E-tested, but the full native recovery UI remains to be verified. Do not build on production VPN/Passwall hosts.
 - After device-role approval, separately approve only the node capabilities required for testing.

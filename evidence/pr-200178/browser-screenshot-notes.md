@@ -12,4 +12,10 @@ The original screenshots contain private endpoint information and, in one case, 
 | Patched: "Diesen Browser genehmigen" on Cloudflare-facing edge | Edge browser route reached OpenClaw's device pairing gate | NOT evidence of completed Cloudflare Access JWT verification, approved device, or hello-ok |
 
 The public textual report and redacted structured traces in this evidence branch contain no tokens, raw Gateway logs, private endpoints, or device identities.
-**For fully visual proof, the separately redacted image files need to be attached to the PR through a GitHub image upload.** This branch intentionally does not claim unhosted screenshots are available here.
+The already-redacted original screenshot images are hosted as GitHub attachments and embedded in the PR Evidence section; the annotated browser pair is also published separately.
+
+## Later real Cloudflare Access browser follow-up
+
+The original browser approval screenshot above proved **only** the OpenClaw pairing gate at its capture time. A later user-performed Cloudflare Access sign-in and actual Gateway WS events at 23:20 and 23:21 (+08:00) documented successfully admitted `openclaw-control-ui` sessions with `auth=trusted-proxy`. These are new logs, **not** a reinterpretation of the original screenshot. [Full Cloudflare route E2E](cloudflare-access/README.md) and [sanitized receipts](cloudflare-access/redacted-ws-events.json).
+
+The existing actual screenshots are hosted as GitHub attachments and embedded in the PR, with additional annotated before/after copies published under [screenshots](screenshots/). Cloudflare edge audit/JWT cryptographic verification remains separate.

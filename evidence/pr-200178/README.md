@@ -6,6 +6,7 @@ Candidate Gateway head `fae22bedc776fadbbbcfb7b0e8d2226d0b1969f6` (2026.11.4). T
 | --- | --- | --- |
 | Original 2026.11.3 Serve operator UI without Cloudflare headers | Missing proxy identity / rejected | [baseline report](E2E_REPORT.md), [structured WS traces](redacted-e2e-traces.json) |
 | PR 2026.11.4 real Chromium Control UI over managed Serve | Authenticated / Control UI loaded | [browser notes](browser-screenshot-notes.md), [browser visual pair](screenshots/) |
+| PR 2026.11.4, **real Cloudflare Access browser login** | **Authenticated** Control UI, `auth=trusted-proxy` (23:20 and 23:21) | [Cloudflare browser E2E](cloudflare-access/README.md), [WS receipts](cloudflare-access/redacted-ws-events.json) |
 | Native graphical app 2026.10.10 operator UI | Connected over Tailscale and trusted proxy | [native app screenshots and receipts](native-macos/README.md) |
 | Matching native app 2026.11.4 operator UI and SSH Node | Both connected with respective credentials | [SSH / Direct comparison](native-macos/transport-comparison.md) |
 | Matching native app 2026.11.4 Direct Node **before** Node token association | Rejected, `auth=none` | [negative Direct results](native-macos/transport-comparison.json) |
@@ -20,7 +21,7 @@ Separate annotated copies of the **same real, redacted images**: [before annotat
 ## Boundaries and unresolved items
 
 - Node permission requires its own scoped token; verified Tailnet operator identity alone did not admit Node access. The manual client-side route association is a **test-only** procedure, not general-supported automatic onboarding.
-- Full matching-app native recovery GUI journey, automatic first-run Direct Node pairing, a Node command invocation, and complete Cloudflare Access SSO success **have not** been demonstrated.
+- Full native recovery GUI, automatic first-run Direct Node pairing and Node command invocation remain **unproven**. The tester reports successful real Cloudflare Access SSO and the Gateway separately corroborates `auth=trusted-proxy` Control UI admission; **Cloudflare edge audit/JWT cryptographic verification was not independently captured**.
 - The independent Serve-vs-Cloudflare allowlist trust policy needs **maintainer acceptance**. Neither positive tests nor ClawSweeper scores constitute policy approval.
 - No raw logs, credentials, backup databases, JWTs, IP addresses, hostnames or private keys published.
 

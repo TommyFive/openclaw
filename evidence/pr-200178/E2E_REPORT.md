@@ -63,7 +63,13 @@ The two source images were tester-supplied; sanitized copies with private hostna
 
 ## Subsequent real graphical native app test
 
-The actual installed app completed operator UI handshakes with Tailscale and trusted-proxy, while its separate node connection remained unauthorized without a node token. See [native-macos E2E](native-macos/README.md). This did not validate the newer native recovery UI.
+The real app's operator UI connected through Serve. Its Node was rejected **before** manual route-scoped Node token association; the matching-build Node then connected successfully over SSH and Direct (including post-restart), without any Gateway auth-policy modification. See [native macOS E2E](native-macos/README.md). Automatic first-run recovery remains unproven.
+
+## Later positive Direct Node evidence (manually provisioned)
+
+Following the initial matching-app SSH success and Direct rejection, the MacBook's existing approved Node token was associated with the verified Direct route through the OpenClawKit credential API, without changing Gateway policy. The real native macOS 2026.11.4 Node connected with `auth=device-token` at **22:50:19.573** and **22:51:17.600** (after app restart), UTC+08. Gateway status showed `paired=true`, `connected=true`.
+
+See [positive Direct Node report](native-macos/direct-node-provisioned-20261117.md) and [structured sanitized receipts](native-macos/direct-node-provisioned-20261117.json). Manual token association does **not** prove native first-run auto-onboarding or successful GUI recovery; those remain limitations.
 
 ## Remaining limitations and owner decision
 

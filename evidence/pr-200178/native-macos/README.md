@@ -52,6 +52,17 @@ The six privacy-redacted screenshot excerpts have now been uploaded as real PNG 
 **Important:** Positive operator UI admission and negative node-role denial are two distinct results. No screenshot from the newer 2026.11.4 macOS app build is claimed, and no screenshot demonstrates successful native node enrollment.
 
 
+## Subsequent matching-build 2026.11.4 transport E2E
+
+**Update after the older-app test above:** The actual macOS app was built from the matching PR commit fae22bedc and tested via both SSH and Tailscale Direct.
+
+- **Operator UI / Tailscale Direct: PASS.** Real app shows Connected via paired device, authenticating with its stored operator device token; WS receipt 21:50:49.868 +08:00 has role=operator, auth=device-token, connected.
+- **Native Mac node / SSH: PASS.** Real version 2026.11.4 node appears paired and connected; WS receipt 21:44:22.351 +08:00 has role=node, auth=password, connected.
+- **Same native Mac node / Tailscale Direct: NOT PASSED.** After returning from SSH, WS attempts at 21:50:53/56/59 +08:00 have role=node, auth=none, missing trusted-proxy identity header, unauthorized. Isolated node inventory now reports paired=true, connected=false.
+- **Remaining:** Provision a properly scoped node credential for the direct endpoint and verify complete native recovery UX. The 2026.11.4 native app displays the missing-node-token error, but a complete successful repair workflow was not demonstrated.
+
+See [separate matching-build SSH vs Direct report](transport-comparison.md) and [structured redacted log evidence](transport-comparison.json). Existing screenshots above document the earlier 2026.10.10 app, not this later matching-build test.
+
 ## Responsible next steps
 
 - Do not enable ambient Tailscale user identity as node authorization.

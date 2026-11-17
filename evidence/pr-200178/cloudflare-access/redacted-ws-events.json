@@ -1,0 +1,47 @@
+{
+  "title": "Real Cloudflare Access browser E2E: trusted-proxy Control UI",
+  "date": "2026-11-17",
+  "timezone": "UTC+08:00",
+  "pr_head": "fae22bedc776fadbbbcfb7b0e8d2226d0b1969f6",
+  "tester_report": "Successfully completed a real Cloudflare Access browser sign-in",
+  "gateway_auth_settings_verified": {
+    "mode": "trusted-proxy",
+    "allowTailscale": true,
+    "required_headers_include_cf_access_jwt_assertion": true,
+    "trusted_proxy_source_allowlist_configured": true,
+    "trusted_proxy_user_allowlist_configured": true,
+    "managed_tailscale_serve_enabled": true
+  },
+  "pairing_gate_events": [
+    {
+      "local_timestamp": "2026-11-17T23:20:20.366+08:00",
+      "event": "pairing_gate_observed"
+    },
+    {
+      "local_timestamp": "2026-11-17T23:21:01.269+08:00",
+      "event": "pairing_gate_observed"
+    }
+  ],
+  "gateway_ws_connected": [
+    {
+      "local_timestamp": "2026-11-17T23:20:22.561+08:00",
+      "client": "openclaw-control-ui",
+      "mode": "webchat",
+      "role": "operator",
+      "auth": "trusted-proxy",
+      "result": "connected"
+    },
+    {
+      "local_timestamp": "2026-11-17T23:21:03.417+08:00",
+      "client": "openclaw-control-ui",
+      "mode": "webchat",
+      "role": "operator",
+      "auth": "trusted-proxy",
+      "result": "connected"
+    }
+  ],
+  "auth_contract": "The Gateway's trusted-proxy success path enforces trusted source, nonempty required identity headers, an allowed proxy user and ingress attribution.",
+  "limit": "Tester-observed SSO success and Gateway trusted-proxy acceptance; separate Cloudflare edge audit logs and JWT cryptographic verification were not independently inspected.",
+  "no_gateway_config_changes": true,
+  "privacy": "No JWTs, user identities, device IDs, IPs, hostnames, request headers or raw logs published"
+}

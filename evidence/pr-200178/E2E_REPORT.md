@@ -73,7 +73,7 @@ See [positive Direct Node report](native-macos/direct-node-provisioned-20261117.
 
 ## Remaining limitations and owner decision
 
-1. The actual graphical macOS app (older version 2026.10.10) was subsequently tested: its operator UI connected over Tailscale Serve and trusted proxy. Positive node-role admission and the NEW 2026.11.4 native recovery dialogs are NOT yet proven. See native-macos/README.md.
+1. The older graphical macOS app (2026.10.10) established operator UI access. A later matching-build 2026.11.4 native app connected as Node over SSH and, after a manual route-scoped token association, over Tailscale Direct (including a post-restart connection). **Automatic first-run Node provisioning and the complete matching-build recovery GUI flow remain unproven.** See native-macos/README.md.
 2. No successful authenticated browser session through the separate **Cloudflare Access** route was exercised in the live experiment. Unit tests cover its allowlist and header gate; the production Cloudflare proxy was not touched.
 3. Need maintainer approval for independent managed Serve authentication in trusted-proxy mode: tailnet user membership is intentionally *not* equivalent to Cloudflare `trustedProxy.allowUsers`.
 4. Full upstream CI remains blocked by external fork `action_required`, despite 354 earlier targeted local tests.

@@ -1,0 +1,75 @@
+{
+  "capture_date": "2026-11-17 CST (UTC+08:00)",
+  "head_revision": "fae22bedc776fadbbbcfb7b0e8d2226d0b1969f6",
+  "actual_native_app_version": "2026.10.10",
+  "source": "native GUI screenshots + correlated Gateway events, not synthetic-only",
+  "ui_positive_events": [
+    {
+      "at": "2026-11-17T17:05:53.582+08:00",
+      "client": "openclaw-macos",
+      "role": "operator",
+      "mode": "ui",
+      "authentication": "tailscale",
+      "outcome": "connected"
+    },
+    {
+      "at": "2026-11-17T17:06:09.114+08:00",
+      "client": "openclaw-macos",
+      "role": "operator",
+      "mode": "ui",
+      "authentication": "trusted-proxy",
+      "outcome": "connected"
+    },
+    {
+      "at": "2026-11-17T17:11:54.182+08:00",
+      "client": "openclaw-macos",
+      "role": "operator",
+      "mode": "ui",
+      "authentication": "trusted-proxy",
+      "outcome": "connected"
+    }
+  ],
+  "node_negative": {
+    "result": "unauthorized",
+    "auth": "none",
+    "role": "node",
+    "signed_device_present": true,
+    "detail": "trusted_proxy_missing_header_cf-access-jwt-assertion",
+    "sample_local_time": "2026-11-17T18:30:01.540+08:00",
+    "sample_count_in_3min": 60
+  },
+  "device_state": {
+    "paired_count": 3,
+    "pending": 0,
+    "by_client": [
+      {
+        "client": "openclaw-control-ui",
+        "mode": "webchat",
+        "roles": [
+          "operator"
+        ]
+      },
+      {
+        "client": "openclaw-macos",
+        "mode": "ui",
+        "roles": [
+          "operator"
+        ]
+      },
+      {
+        "client": "cli",
+        "mode": "cli",
+        "roles": [
+          "operator"
+        ]
+      }
+    ],
+    "approved_node_role_count": 0
+  },
+  "limitations": [
+    "old app binary did not exercise new 2026.11.4 recovery UI",
+    "native node did not pass auth",
+    "no direct Cloudflare Access browser JWT verification"
+  ],
+  "privacy": "redacted - no device IDs, IPs, hostnames, tokens or raw logs"
+}
